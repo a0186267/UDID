@@ -25,6 +25,15 @@ var handleRequest = function (request, response) {
 
 var server = http.createServer(handleRequest);
 
+var io = require('socket.io').listen(server);
+
+io.on('connection', function(socket){
+  console.log('a user connected', socket);
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+});
+
 server.listen(config.port, 'localhost', function () {
 	console.log('HTTP伺服器在 http://127.0.0.1:' + config.port + '/ 上運行');
 });
