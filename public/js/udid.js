@@ -15,12 +15,9 @@ var YDID = (function () {
 			registName: function(name, callback){
 				var len = name.trim().length;
 				this.registName.callback = callback;
-				console.log('start regist');
 				if( len > 0 && len <= 20 ){
-					console.log('sent');
 					this.socket.emit('regUser', name.trim());
 				} else {
-					console.log('die');
 					alert('暱稱請輸入 1~20 個字');
 				}
 			},
@@ -32,7 +29,6 @@ var YDID = (function () {
 					case 'login':
 						useListener('userChecked');
 						socket.on('userChecked', function(data){
-							console.log('get');
 							udid.registName.callback(data);
 						});
 						break;

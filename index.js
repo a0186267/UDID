@@ -37,7 +37,6 @@ io.on('connection', function(socket){
   });
   
   socket.on('regUser', function(data){
-	  console.log(data);
 	  socket.emit('userChecked', data);
   });
 });
