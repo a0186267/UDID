@@ -1,3 +1,69 @@
 .test{
 	margin: 0;
 }
+
+#sign_in{
+	position: fixed ;
+	top: 0 ;
+	right:0 ;
+	height:100%;
+	width:100%;
+	background-color: black;
+	opacity:0.7;
+	z-index : 99;
+}
+
+#input_info ,
+#welcome_into_game,
+#reciprocal{
+  font-family: fantasy;
+  font-size: 45px;
+  margin: auto;
+  width: 305px;
+  height: 100px;
+  margin-top: 200px;
+}
+#welcome_into_game{
+	display:none;
+	width:315px;
+}
+#welcome_into_game .btn {
+  opacity: 0.8;
+}
+.my_name{
+	color: white;
+	background-color: black;
+	width:200px;
+	margin:auto;
+} 
+
+#welcome_into_game #your_name img {
+  margin: 0 10px;
+  width: 50px;
+  height: 50px;
+}
+/**
+#welcome_into_game #is_ready{
+	display:none;
+}
+**/
+
+#reciprocal{
+	display:none;
+	font-size: 100px;
+	text-align: center;
+}
+
+.container{
+	display:none;
+	width:1000px;
+	height:700px;
+	//background-color: black;
+}
+.bubble_container{
+	width:100%;
+}
+.input_container{
+	height:70px;
+	
+}
