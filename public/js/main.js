@@ -24,3 +24,16 @@ $("#is_ready").on('click', function () {
 	$('#reciprocal').show();
 
 }); 
+
+function countdown_by_secs( secs ){
+	for (var i = secs ; i >= 0; i--) {
+		window.setTimeout("doUpdate(" + i + ")", (secs - i) * 1000);
+	}
+} 
+function doUpdate(num) {
+	var number = num;
+	if( parseInt(num) < 10 && parseInt(num) != 0){ 
+		number = "0"+num ;
+	}
+	$('.countdown').html(number);
+}
