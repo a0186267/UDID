@@ -25,7 +25,8 @@
 }
 #welcome_into_game{
 	display:none;
-	width:315px;
+	width: 600px;
+	text-align: center;
 }
 #welcome_into_game .btn {
   opacity: 0.8;
@@ -45,6 +46,7 @@
 
 #welcome_into_game #is_ready{
 	display:none;
+	
 }
 #reciprocal{
 	display:none;
