@@ -1,7 +1,7 @@
 $(".my_name").keydown(function (event) {
 	if (event.which == 13) {
 		console.log('start');
-		YDID.registName($('#nick_name_textbar').val(), function(finalName){
+		YDID.registName($('#nick_name_textbar').val(), function (finalName) {
 			$("#input_info").hide();
 			$('#welcome_into_game').show();
 			$('.my_name').off('keydown');
@@ -15,6 +15,19 @@ $("#is_ready").on('click', function () {
 	$('#reciprocal').show();
 });
 
-$(document).ready(function(){
+$(document).ready(function () {
 	YDID.changeStatus('login');
 });
+
+function countdown_by_secs(secs) {
+	for (var i = secs; i >= 0; i--) {
+		window.setTimeout("doUpdate(" + i + ")", (secs - i) * 1000);
+	}
+}
+function doUpdate(num) {
+	var number = num;
+	if (parseInt(num) < 10 && parseInt(num) != 0) {
+		number = "0" + num;
+	}
+	$('.countdown').html(number);
+}
