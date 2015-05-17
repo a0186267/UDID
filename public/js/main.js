@@ -7,12 +7,14 @@ $(".my_name").keydown(function (event) {
 			$('.my_name').off('keydown');
 			$('#my_name').text(finalName);
 		});
+		console.log('input_nickname_click');
 	}
 });
-
 $("#is_ready").on('click', function () {
 	$("#welcome_into_game").hide();
 	$('#reciprocal').show();
+	console.log('is_ready_click');
+	
 });
 
 $(document).ready(function () {
