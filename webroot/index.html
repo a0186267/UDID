@@ -6,16 +6,17 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css" />
+		
 	</head>
 	<body> 
 		<div id="sign_in">
 			<div id="input_info">
 				My Nickname is 
-				<input  type="text" class="form-control my_name" />
+				<input id="nick_name_textbar" type="text" class="form-control my_name" />
 			</div>
 			<div id="welcome_into_game">
-				<span id="my_name">Elsa</span> V.S <span id="your_name"><img src='/public/img/support-loading.gif'/></span>
-				<?php  //is_ready 原本是display:none 但配對到人之後 就把對手名字塞到your_name 且把is_read displayblock?>
+				<span id="my_name">{nickname}</span> V.S <span id="your_name"><img src='/public/img/support-loading.gif'/></span>
+				<!-- is_ready 原本是display:none 但配對到人之後 就把對手名字塞到your_name 且把is_read displayblock -->
 				<div id="is_ready" class="btn btn-default">Ready</div>
 			</div>
 			
@@ -23,19 +24,45 @@
 				<!--
 					這裏是讀秒,讀完秒後出現start 然後 #sign_in 就 fadeOut(); 
 					and $('.container').show();
-				--></div>
+				-->
+			</div> 
 		</div>
-		<div class="container">
-			<div class="bubble_container">
+		
+		
+		<div id="container">
+			<div id='my_container'>
+				<div class="bubble_container">
+					<div class='bubble'>apple</div>
+					<div class='bubble'>apple</div>
+					<div class='bubble'>apple</div>
+					<div class='bubble'>apple</div>
+					<div class='bubble'>apple</div>
+					<div class='bubble'>apple</div>
+					<div class='bubble'>apple</div>
+					<div class='bubble'>apple</div>
+					<div class='bubble'>apple</div>
+					<div class='bubble'>apple</div>
+					<div class='bubble'>apple</div>
+				</div>
+				<div class="input_container">
+					<input  type="text" class="form-control" />
+				</div>
 			</div>
-			<div class="input_container">
-			<div class="form-group has-success has-feedback">
-				<label class="control-label sr-only" for="inputSuccess5">Hidden label</label>
-				<input type="text" class="form-control" id="inputSuccess5" aria-describedby="inputSuccess5Status">
-				<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
-				<span id="inputSuccess5Status" class="sr-only">(success)</span>
+			<div id='game_status'>
+				<div class='countdown'></div>
+				<div class='score'>
+					<div class='my_score'>10</div>
+					<div class='vs_score'>VS</div>
+					<div class='your_score'>9</div>
+				</div>
 			</div>
+			<div id='your_container'>
+				<div class="bubble_container">
+				</div>
+				<div class="your_name">Aider</div>
 			</div>
+			
+		
 		</div>
 		
 		<script src="//code.jquery.com/jquery-1.11.3.min.js" type="text/javascript"></script>
@@ -43,5 +70,9 @@
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="/public/js/udid.js" type="text/javascript"></script>
 		<script src="/public/js/main.js" type="text/javascript"></script>
+		
+		<script type="text/JavaScript">
+			countdown_by_secs(75);
+		</script>
 	</body>
 </html>

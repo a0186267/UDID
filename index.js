@@ -31,9 +31,14 @@ var server = http.createServer(handleRequest);
 var io = require('socket.io').listen(server);
 
 io.on('connection', function(socket){
-  console.log('a user connected', socket);
+  console.log('a user connected');
   socket.on('disconnect', function(){
     console.log('user disconnected');
+  });
+  
+  socket.on('regUser', function(data){
+	  console.log(data);
+	  socket.emit('userChecked', data);
   });
 });
 
