@@ -11,11 +11,11 @@
 		<div id="sign_in">
 			<div id="input_info">
 				My Nickname is 
-				<input  type="text" class="form-control my_name" />
+				<input id="nick_name_textbar" type="text" class="form-control my_name" />
 			</div>
 			<div id="welcome_into_game">
-				<span id="my_name">Elsa</span> V.S <span id="your_name"><img src='/public/img/support-loading.gif'/></span>
-				<?php  //is_ready 原本是display:none 但配對到人之後 就把對手名字塞到your_name 且把is_read displayblock?>
+				<span id="my_name">{nickname}</span> V.S <span id="your_name"><img src='/public/img/support-loading.gif'/></span>
+				<!-- is_ready 原本是display:none 但配對到人之後 就把對手名字塞到your_name 且把is_read displayblock -->
 				<div id="is_ready" class="btn btn-default">Ready</div>
 			</div>
 			
@@ -23,7 +23,8 @@
 				<!--
 					這裏是讀秒,讀完秒後出現start 然後 #sign_in 就 fadeOut(); 
 					and $('.container').show();
-				--></div>
+				-->
+			</div>
 		</div>
 		<div class="container">
 			<div class="bubble_container">
