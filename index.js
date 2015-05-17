@@ -61,19 +61,19 @@ var io = require('socket.io').listen(server);
       user1.num = 0;
       user1.kill=0;
       user2.id = Obj_ready.shift();//移除並取出第一個值
-<<<<<<< HEAD
       console.log(socket.id + "2------> " + user2.id)
-=======
->>>>>>> df16cccf624473d12e5fd4d43d77bf9af4b6fbfe
       user2.all = card.slice(100, 199);
       user2.show = new Array();
       user2.num = 0;
       user2.kill=0;
       //回傳 配發房號 / 雙方暱稱
       Obj_room[roomNum]= { user1:user1 , user2:user2 };
-	    //###
+      //io.emit --> 所有人
+      //io.emit("ReadyGo", JSON.stringify({roomNum:roomNum,me:userList[user1.id],other:userList[user2.id]}));
+      //socket.emit --> 當前連線
       socket.emit("ReadyGo", JSON.stringify({roomNum:roomNum,me:userList[user1.id],other:userList[user2.id]}));
-      //socket(user2.id).emit("Start", JSON.stringify({roomNum:roomNum,me:userList[user2.id],other:userList[user1.id]}));
+      //socket.broadcast.to(socket.id).emit --> 指定的人
+      socket.broadcast.to(user2.id).emit("ReadyGo", JSON.stringify({roomNum:roomNum,me:userList[user2.id],other:userList[user1.id]}));
     }else{ //表示沒有人在
       //      
       //登記等待他人
@@ -94,13 +94,15 @@ var io = require('socket.io').listen(server);
           
           //輸的判斷
           if (room.user1.show.length >19){
-            socket.emit("End",JSON.stringify({roomNum:room.roomNum,WIN:userList[room.user2.id],LOSE:userList[room.user1.id]}));            
+            socket.broadcast.to(room.user1.id).emit("End",JSON.stringify({result:"LOSE",WIN:0,LOSE:0}));
+            socket.broadcast.to(room.user2.id).emit("End",JSON.stringify({result:"WIN",WIN:0,LOSE:0}));
           }else if (room.user2.show.length >19){
-            socket.emit("End",JSON.stringify({roomNum:room.roomNum,WIN:userList[room.user1.id],LOSE:userList[room.user2.id]}));
+            socket.broadcast.to(room.user2.id).emit("End",JSON.stringify({result:"LOSE",WIN:0,LOSE:0}));
+            socket.broadcast.to(room.user1.id).emit("End",JSON.stringify({result:"WIN",WIN:0,LOSE:0}));
           };
 //          
-//          socket(room.user1.id).emit("Animant",JSON.stringify({tb1:room.user1.show,tb2:room.user2.show}));
-//          socket(room.user2.id).emit("Animant",JSON.stringify({tb1:room.user1.show,tb2:room.user2.show}));
+          socket.broadcast.to(room.user1.id).emit("Animant",JSON.stringify({tb1:room.user1.show,tb2:room.user2.show}));
+          socket.broadcast.to(room.user2.id).emit("Animant",JSON.stringify({tb1:room.user1.show,tb2:room.user2.show}));
         };
 	    } , 3000);
     //clearInterval(loop);
