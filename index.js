@@ -61,7 +61,10 @@ var io = require('socket.io').listen(server);
       user1.num = 0;
       user1.kill=0;
       user2.id = Obj_ready.shift();//移除並取出第一個值
+<<<<<<< HEAD
       console.log(socket.id + "2------> " + user2.id)
+=======
+>>>>>>> df16cccf624473d12e5fd4d43d77bf9af4b6fbfe
       user2.all = card.slice(100, 199);
       user2.show = new Array();
       user2.num = 0;
