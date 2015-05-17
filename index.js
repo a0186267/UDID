@@ -11,6 +11,9 @@ var handleRequest = function (request, response) {
 		case '/index':
 			fs.createReadStream('./webroot/index.html').pipe(response);
 			break;
+		case '/socketio':
+			//fs.createReadStream('./webroot/index.html').pipe(response);
+		    break;
 		default:
 			if (request.url.indexOf('/public') === 0) {
 				fs.createReadStream('.' + request.url).pipe(response);
