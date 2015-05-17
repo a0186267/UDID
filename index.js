@@ -19,7 +19,7 @@ var handleRequest = function (request, response) {
 				fs.createReadStream('.' + request.url).pipe(response);
 			} else {
 				fs.createReadStream('./webroot/index.html').pipe(response);
-			}
+			};
 			break;
 	}
 	timeCost = new Date().getTime() - timeStart;
@@ -27,12 +27,9 @@ var handleRequest = function (request, response) {
 };
 
 var server = http.createServer(handleRequest);
-
 var io = require('socket.io').listen(server);
 /////////////////////////////////////////////////////////
-  //userList[id]= nick //暱稱object
   var userList = new Object();
- 
   io.on('connection', function(socket){
     userList[socket.id] = "User";
     console.log('a user connected id:' + socket.id);
@@ -47,67 +44,65 @@ var io = require('socket.io').listen(server);
     console.log(socket.id + '--login --> ' + data);
     //判斷是否有人已經在ready了，有的話建立房間物件
     //玩家1  >> 牌組/ 桌面2維 / 批號 1~20 (80)
-    //玩家2  >>
+    //玩家2  >> 牌組/ 桌面2維 / 批號 1~20 (80)
     //牌組 裡有的 不丟回來
-//    
     console.log(socket.id + '--ready --> ' + data);
     //準備配對
     if (Obj_ready.length > 0){ //表示已有人在等待
+    console.log(socket.id + "1-----> ")
+      var card =  shuffle(English); //洗好的牌
       //把雙方玩家拉進房號
       var roomNum = "R" + RM(9999); //亂數房號
       var user1 = new Object();
       var user2 = new Object();
-      var card =  shuffle(English); //洗好的牌
       user1.id = socket.id;
       user1.all = card.slice(0, 99);
       user1.show = new Array();
       user1.num = 0;
       user1.kill=0;
-      user2.id = Obj_ready.shift;//移除並取出第一個值
+      user2.id = Obj_ready.shift();//移除並取出第一個值
+      console.log(socket.id + "2------> " + user2.id)
       user2.all = card.slice(100, 199);
       user2.show = new Array();
       user2.num = 0;
       user2.kill=0;
-      Obj_room[roomNum]= { user1:user1 , user2:user2 };
       //回傳 配發房號 / 雙方暱稱
-	  //###
+      Obj_room[roomNum]= { user1:user1 , user2:user2 };
+	    //###
       socket.emit("ReadyGo", JSON.stringify({roomNum:roomNum,me:userList[user1.id],other:userList[user2.id]}));
       //socket(user2.id).emit("Start", JSON.stringify({roomNum:roomNum,me:userList[user2.id],other:userList[user1.id]}));
-//      
-      //
     }else{ //表示沒有人在
+      //      
       //登記等待他人
       Obj_ready.push(socket.id);
     }
-//    
+  //    
   });
-//  
-  
-//  //遊戲進行
-//    var runloop = setInterval(function(){
-//        Obj_room.forEach(function(room){
-//          //算位置
-//          room.user1.show.push( room.user1.all.slice(room.user1.num * 4 , room.user1.num * 4 + 3 ));
-//          room.user1.num = room.user1.num +1;
-//          room.user2.show.push( room.user2.all.slice(room.user2.num * 4 , room.user2.num * 4 + 3 ));
-//          room.user2.num = room.user2.num +1;
+  //  
+  //遊戲進行
+    var runloop = setInterval(function(){
+        for(var key in Obj_room){ 
+          var room = Obj_room[key];
+          //算位置
+          room.user1.show.push( room.user1.all.slice(room.user1.num * 4 , room.user1.num * 4 + 3 ));
+          room.user1.num = room.user1.num +1;
+          room.user2.show.push( room.user2.all.slice(room.user2.num * 4 , room.user2.num * 4 + 3 ));
+          room.user2.num = room.user2.num +1;
+          
+          //輸的判斷
+          if (room.user1.show.length >19){
+            socket.emit("End",JSON.stringify({roomNum:room.roomNum,WIN:userList[room.user2.id],LOSE:userList[room.user1.id]}));            
+          }else if (room.user2.show.length >19){
+            socket.emit("End",JSON.stringify({roomNum:room.roomNum,WIN:userList[room.user1.id],LOSE:userList[room.user2.id]}));
+          };
 //          
-//          //輸的判斷
-//          
-//          //room.user2.show
 //          socket(room.user1.id).emit("Animant",JSON.stringify({tb1:room.user1.show,tb2:room.user2.show}));
 //          socket(room.user2.id).emit("Animant",JSON.stringify({tb1:room.user1.show,tb2:room.user2.show}));
-//        });
-//	    } , 3000);
-//    //clearInterval(loop);
-//  
-  
-  
+        };
+	    } , 3000);
+    //clearInterval(loop);
   
 });
-
-
-
 
 
 /////////////////////////////////////////////////////////
