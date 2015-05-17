@@ -1,9 +1,7 @@
 $(".my_name").keydown(function (event) {
 	if (event.which == 13) {
-		console.log('start');
-		YDID.registName($('#nick_name_textbar').val(), function (finalName) {
-			$("#input_info").hide();
-			$('#welcome_into_game').show();
+		YDID.registName($('#nick_name_textbar').val(), function(finalName){
+			YDID.changeStatus('welcome');
 			$('.my_name').off('keydown');
 			$('#my_name').text(finalName);
 		});

@@ -45,12 +45,6 @@ var io = require('socket.io').listen(server);
     userList[socket.id] = data;
 	socket.emit("userChecked",data);
     console.log(socket.id + '--login --> ' + data);
-  });
-  
-  
-  
-  //準備配對     //遊戲開始
-  socket.on('ready', function(data){
     //判斷是否有人已經在ready了，有的話建立房間物件
     //玩家1  >> 牌組/ 桌面2維 / 批號 1~20 (80)
     //玩家2  >>
@@ -69,7 +63,7 @@ var io = require('socket.io').listen(server);
       user1.show = new Array();
       user1.num = 0;
       user1.kill=0;
-      user2.id = Obj_ready.shift;//移除並取出第一個值
+      user2.id = Obj_ready.shift();//移除並取出第一個值
       user2.all = card.slice(100, 199);
       user2.show = new Array();
       user2.num = 0;
@@ -77,7 +71,7 @@ var io = require('socket.io').listen(server);
       Obj_room[roomNum]= { user1:user1 , user2:user2 };
       //回傳 配發房號 / 雙方暱稱
 	  //###
-      socket.emit("Start", JSON.stringify({roomNum:roomNum,me:userList[user1.id],other:userList[user2.id]}));
+      socket.emit("ReadyGo", JSON.stringify({roomNum:roomNum,me:userList[user1.id],other:userList[user2.id]}));
       //socket(user2.id).emit("Start", JSON.stringify({roomNum:roomNum,me:userList[user2.id],other:userList[user1.id]}));
 //      
       //
