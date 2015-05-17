@@ -1,7 +1,3 @@
-## UDID
-A web game  to reduce the pressure.
-一個生產者跟消除者 PK 的遊戲
-
 ## Game Role
 
 1. 玩家兩人。
@@ -23,4 +19,3 @@ A web game  to reduce the pressure.
     * 每消掉一個單字獲得100分。
     * 分數較高玩家秀出相對應畫面。
     * 分數較低玩家秀出相對應畫面。
-
